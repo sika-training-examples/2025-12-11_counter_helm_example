@@ -8,10 +8,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - counter.lab0.sikademo.com
-      secretName: counter.lab0.sikademo.com-tls
+        - {{ .Values.host }}
+      secretName: {{ .Values.host }}-tls
   rules:
-    - host: counter.lab0.sikademo.com
+    - host: {{ required ".Values.host is required" .Values.host }}
       http:
         paths:
           - path: /

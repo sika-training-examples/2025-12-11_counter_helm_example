@@ -1,3 +1,4 @@
+{{ if .Values.backupNginxHost }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -8,10 +9,10 @@ spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - counter-backup.lab0.sikademo.com
-      secretName: counter-backup.lab0.sikademo.com-tls
+        - {{ .Values.backupNginxHost }}
+      secretName: {{ .Values.backupNginxHost }}-tls
   rules:
-    - host: counter-backup.lab0.sikademo.com
+    - host: {{ .Values.backupNginxHost }}
       http:
         paths:
           - path: /
@@ -21,3 +22,4 @@ spec:
                 name: backup-nginx
                 port:
                   number: 80
+{{ end }}

@@ -19,4 +19,4 @@ spec:
           command:
             - /bin/sh
             - -c
-            - redis-cli -h redis incrby counter 5000 && sleep 10 && redis-cli -h redis incrby counter 5000
+            - redis-cli -h redis incrby counter 5000 && sleep 1 && redis-cli -h redis incrby counter 5000

@@ -4,7 +4,7 @@ metadata:
   name: backend
 spec:
   revisionHistoryLimit: 0
-  replicas: 4
+  replicas: {{ .Values.backend.replicas }}
   selector:
     matchLabels:
       app: backend
@@ -23,16 +23,16 @@ spec:
             - "sleep 2 && kubectl wait --for=condition=complete --timeout=600s job/migrations"
       containers:
         - name: main
-          image: ghcr.io/ondrejsika/counter
+          image: {{ .Values.backend.image }}
           env:
             - name: EXTRA_TEXT
-              value: v3
+              value: {{ .Values.EXTRA_TEXT | quote }}
             - name: REDIS
               value: redis
             - name: API_ONLY
-              value: '1'
+              value: {{ .Values.API_ONLY | quote }}
             - name: SLOW_START
-              value: '10'
+              value: {{ .Values.SLOW_START | quote }}
           ports:
             - containerPort: 8000
           livenessProbe:
